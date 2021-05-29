@@ -27,11 +27,12 @@ class AirtableClient
      */
     public function findAll(string $table, ?string $view = null): array
     {
+        $url = $this->id . '/' . $table;
+        
         if ($view) {
-            $view = '?view=' . $view;
+            $url .= '?view=' . $view;
         }
-
-        $url = $this->id .'/'. $table . $view;
+        
         $response = $this->request($url);
 
         return $response->toArray()['records'];
